@@ -2,7 +2,7 @@ import moment from 'moment'
 import Error from './error.js'
 import errors from './../consts.js'
 
-const File = function (isFile, fileName, fileType, createdBy) {
+const File = function (isFile, fileName, fileType, createdBy, parent) {
   this.isFile = isFile
   this.fileName = fileName
   this.fileType = fileType
@@ -10,6 +10,7 @@ const File = function (isFile, fileName, fileType, createdBy) {
   this.createdAt = moment()
   this.lastUpdatedAt = moment()
   this.files = []
+  this.parent = parent
 
   this.addFile = function (file) {
     this.files.push(file)

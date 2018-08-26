@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 * {
 	font-family: 'Montserrat', sans-serif;
 }
@@ -57,7 +57,6 @@ body {
 }
 
 .tree-view-holder {
-  position: fixed;
   flex: 1 0;
   overflow: scroll;
   height: 100%;
@@ -65,10 +64,10 @@ body {
 
 .content-view-holder {
   flex: 2 0;
+  padding: 16px;
 }
 
 .bread-crumbs-holder {
-
 }
 
 .content-holder {
