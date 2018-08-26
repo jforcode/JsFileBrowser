@@ -4,8 +4,13 @@
     <div class="main-holder">
       <TreeLayoutView class="tree-view-holder" />
       <div class="content-view-holder">
-        <BreadCrumbView class="bread-crumbs-holder" />
-        <ContentView class="content-holder" />
+        <div v-if="appState.currSelectedFile">
+          <BreadCrumbView class="bread-crumbs-holder" />
+          <ContentView class="content-holder" />
+        </div>
+        <div class="no-file-selected" v-else>
+          Please select a file to view it's contents
+        </div>
       </div>
     </div>
   </div>
@@ -17,10 +22,16 @@ import TreeLayoutView from './components/TreeLayoutView.vue'
 import BreadCrumbView from './components/BreadCrumbView.vue'
 import ContentView from './components/ContentView.vue'
 
+import appState from './stores/appState.js'
+
 export default {
   data () {
     return {
+      appState
     }
+  },
+  created () {
+    this.appState = appState
   },
   components: {
     TopBarView,
@@ -57,20 +68,24 @@ body {
 }
 
 .tree-view-holder {
-  flex: 1 0;
+  flex: 2 0;
   overflow: scroll;
   height: 100%;
 }
 
+.no-file-selected {
+  margin: 20% 30%;
+}
+
 .content-view-holder {
-  flex: 2 0;
-  padding: 16px;
+  flex: 5 0;
 }
 
 .bread-crumbs-holder {
+  padding: 16px;
 }
 
 .content-holder {
-
+  padding: 16px;
 }
 </style>

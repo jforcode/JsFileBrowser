@@ -1,5 +1,6 @@
-import Vue from 'vue';
-import App from './App.vue';
+import Vue from 'vue'
+import App from './App.vue'
+import common from './common.css'
 import fs from './stores/fileSystem.js'
 import data from './data/longJson.json'
 

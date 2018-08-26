@@ -3,20 +3,13 @@
     <div class="tree-element" v-if="file.fileName">
       <div class="" v-if="file.isFile" @click="setAsSelected">
         <!-- TODO: change to a file icon -->
-        <i class="material-icons tree-element__icon" v-if="file.isFile">
-          event
-        </i>
+        <i class="material-icons tree-element__icon" v-if="file.isFile">event</i>
       </div>
       <div class="" v-else>
-        <i class="material-icons tree-element__icon" v-if="displayChildren" @click="displayChildren = false">
-          arrow_drop_down
+        <i class="material-icons tree-element__icon" @click="toggleDisplayChildren">
+          {{ displayChildren ? 'arrow_drop_down' : 'arrow_right' }}
         </i>
-        <i class="material-icons tree-element__icon" v-else @click="displayChildren = true">
-          arrow_right
-        </i>
-        <i class="material-icons tree-element__icon" @click="setAsSelected">
-          folder
-        </i>
+        <i class="material-icons tree-element__icon" @click="setAsSelected">folder</i>
       </div>
       <span class="tree-element__name" @click="setAsSelected">{{ file.fileName }}</span>
     </div>
@@ -43,6 +36,9 @@ export default {
   methods: {
     setAsSelected: function () {
       appState.setSelectedFile(this.file)
+    },
+    toggleDisplayChildren: function () {
+      this.displayChildren = !this.displayChildren
     }
   },
   created () {
