@@ -57,7 +57,7 @@ export default {
   transition: all .2s;
 }
 .crumb__label:hover {
-  color: #2196F3;
+  color: #FF5722;
 }
 
 </style>

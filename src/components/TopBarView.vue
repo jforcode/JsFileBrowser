@@ -1,5 +1,8 @@
 <template lang="html">
-  <div class="">
+  <div class="top-bar">
+    <span>HOME</span>
+    <div class="flex-spacer"></div>
+    <span>TRASH</span>
   </div>
 </template>
 
@@ -14,4 +17,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.top-bar {
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  padding-left: 32px;
+  padding-right: 16px;
+}
 </style>

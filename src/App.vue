@@ -2,7 +2,7 @@
   <div id="app">
     <TopBarView class="top-bar"/>
     <div class="main-holder">
-      <TreeLayoutView class="tree-view-holder" />
+      <TreeLayoutView class="tree-view-holder shadow--2dp" />
       <div class="content-view-holder">
         <div v-if="appState.currSelectedFile">
           <BreadCrumbView class="bread-crumbs-holder" />
@@ -43,42 +43,26 @@ export default {
 </script>
 
 <style lang="css" scoped>
-* {
-	font-family: 'Montserrat', sans-serif;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-}
-
-#app {
-  height: 100%;
-  position: static;
-}
-
 .top-bar {
-
+  height: 64px;
+  background-color: #212121;
 }
 
 .main-holder {
   display: flex;
-  height: 100%;
 }
 
 .tree-view-holder {
   flex: 2 0;
-  overflow: scroll;
-  height: 100%;
-}
-
-.no-file-selected {
-  margin: 20% 30%;
+  background-color: #FAFAFA;
 }
 
 .content-view-holder {
   flex: 5 0;
+}
+
+.no-file-selected {
+  margin: 20% 30%;
 }
 
 .bread-crumbs-holder {
