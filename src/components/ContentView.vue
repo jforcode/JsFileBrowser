@@ -6,14 +6,14 @@
         <p class="file-created-by">Created By: {{ appState.currSelectedFile.createdBy }}</p>
       </div>
       <div class="flex-spacer"></div>
-      <p>{{ appState.currSelectedFile.lastUpdatedAt }}</p>
+      <p>{{ appState.currSelectedFile.lastUpdatedAt.fromNow() }}</p>
     </div>
     <div v-if="!appState.currSelectedFile.isFile" class="child-files">
       <div v-for="file in appState.currSelectedFile.files" class="child-file" @click="selectFile(file)">
         <i class="material-icons child-ele child__icon">{{ file.isFile ? 'file_upload' : 'folder' }}</i>
         <p class="child-ele child__name">{{ file.fileName }}</p>
         <p class="child-ele child__created-by">{{ file.createdBy }}</p>
-        <p class="child-ele child__updated-at">{{ file.lastUpdatedAt }}</p>
+        <p class="child-ele child__updated-at">{{ file.lastUpdatedAt.fromNow() }}</p>
       </div>
       <p v-if="!appState.currSelectedFile.files.length">Empty folder</p>
     </div>

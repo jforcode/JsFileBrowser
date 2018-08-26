@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="top-bar">
-    <span>HOME</span>
+    <p class="action-ele" @click="$emit('showHome')">HOME</p>
+    <p class="action-ele" @click="$emit('showTrash')">TRASH</p>
     <div class="flex-spacer"></div>
-    <span>TRASH</span>
   </div>
 </template>
 
@@ -10,7 +10,6 @@
 export default {
   data () {
     return {
-      message: 'Top Bar'
     }
   }
 }
@@ -23,5 +22,11 @@ export default {
   color: #FFFFFF;
   padding-left: 32px;
   padding-right: 16px;
+}
+
+.action-ele {
+  margin: 0 8px;
+  padding: 8px;
+  cursor: pointer;
 }
 </style>

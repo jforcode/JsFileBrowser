@@ -19,5 +19,9 @@ module.exports = {
     {
       label: 'AT3 file'
     }
-  ]
+  ],
+  pages: {
+    "home": 0,
+    "trash": 1
+  }
 }

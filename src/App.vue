@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="app">
-    <TopBarView class="top-bar"/>
-    <div class="main-holder">
+    <TopBarView class="top-bar" @showHome="currPage = pages.home" @showTrash="currPage = pages.trash" />
+    <div class="main-holder" v-if="currPage === pages.home">
       <TreeLayoutView class="tree-view-holder shadow--2dp" />
       <div class="content-view-holder">
         <div v-if="appState.currSelectedFile">
@@ -13,6 +13,9 @@
         </div>
       </div>
     </div>
+    <div class="trash-holder" v-if="currPage === pages.trash">
+
+    </div>
   </div>
 </template>
 
@@ -23,15 +26,23 @@ import BreadCrumbView from './components/BreadCrumbView.vue'
 import ContentView from './components/ContentView.vue'
 
 import appState from './stores/appState.js'
+import { pages } from './consts.js'
 
 export default {
   data () {
     return {
-      appState
+      appState,
+      pages,
+
+      currPage: null
     }
+  },
+  methods: {
   },
   created () {
     this.appState = appState
+    this.pages = pages
+    this.currPage = pages.home
   },
   components: {
     TopBarView,
@@ -50,6 +61,10 @@ export default {
 
 .main-holder {
   display: flex;
+}
+
+.trash-holder {
+
 }
 
 .tree-view-holder {
