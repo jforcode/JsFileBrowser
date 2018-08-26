@@ -2,7 +2,7 @@ import moment from 'moment'
 import Error from './error.js'
 import errors from './../consts.js'
 
-function File (isFile, fileName, fileType, createdBy) {
+const File = function (isFile, fileName, fileType, createdBy) {
   this.isFile = isFile
   this.fileName = fileName
   this.fileType = fileType
@@ -26,4 +26,6 @@ function File (isFile, fileName, fileType, createdBy) {
   }
 }
 
-module.exports = { File }
+export default {
+  File
+}

@@ -1,7 +1,7 @@
-function Error (code, desc, extra) {
+const Error = function (code, desc, extra) {
   this.code = code
   this.desc = desc
   this.extra = extra
 }
 
-module.exports = { Error }
+export default { Error }

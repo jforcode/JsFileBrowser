@@ -1,6 +1,6 @@
 module.exports = {
   errors: {
-    NOT_A_FILE,
+    NOT_A_FILE: 'NOT_A_FILE',
   },
   users: {
     root: 'root',
