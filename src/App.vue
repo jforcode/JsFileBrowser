@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="app">
-    <TopBarView />
+    <TopBarView class="top-bar"/>
     <div class="main-holder">
       <TreeLayoutView class="tree-view-holder" />
       <div class="content-view-holder">
@@ -32,20 +32,39 @@ export default {
 </script>
 
 <style lang="css">
+* {
+	font-family: 'Montserrat', sans-serif;
+}
+
 body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+  position: static;
+}
+
+.top-bar {
 
 }
 
 .main-holder {
-
+  display: flex;
+  height: 100%;
 }
 
-.tree-view {
-
+.tree-view-holder {
+  position: fixed;
+  flex: 1 0;
+  overflow: scroll;
+  height: 100%;
 }
 
 .content-view-holder {
-
+  flex: 2 0;
 }
 
 .bread-crumbs-holder {

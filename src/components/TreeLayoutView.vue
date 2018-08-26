@@ -1,10 +1,9 @@
 <template lang="html">
   <div>
-    {{ message }}
     <FileView
-      v-for="(file, index) in rootFile.files"
-      :file="file"
-      :key="index" />
+      :file="rootFile"
+      :indent="0"
+      :key="0" />
 
   </div>
 </template>
@@ -17,7 +16,6 @@ export default {
   name: 'tree-layout',
   data () {
     return {
-      message: 'Tree view',
       rootFile: null
     }
   },
