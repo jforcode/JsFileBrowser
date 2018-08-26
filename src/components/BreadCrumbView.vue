@@ -1,14 +1,12 @@
 <template lang="html">
   <div class="">
-  <div class="bread-crumbs">
     <div class="crumb" v-for="crumb in crumbs" @click="selectFile(crumb.file)">
+      <i class="material-icons crumb__icon">keyboard_arrow_right</i>
       <p class="crumb__label">
         {{ crumb.label }}
       </p>
-      <i class="material-icons crumb__icon">keyboard_arrow_right</i>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -48,9 +46,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.bread-crumbs {
-}
-
 .crumb {
   display: inline-flex;
   align-items: baseline;
@@ -58,8 +53,11 @@ export default {
 
 .crumb__label {
   margin: auto 8px;
+  cursor: pointer;
+  transition: all .2s;
 }
-.crumb:last-child .crumb-icon {
-  display: none;
+.crumb__label:hover {
+  color: #2196F3;
 }
+
 </style>

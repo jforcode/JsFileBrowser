@@ -37,7 +37,7 @@ export default {
   ],
   data () {
     return {
-      displayChildren: false
+      displayChildren: true // TODO: make it false
     }
   },
   methods: {
