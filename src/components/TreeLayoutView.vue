@@ -1,9 +1,10 @@
 <template lang="html">
   <div>
     <FileView
-      :file="rootFile"
-      :indent="0"
-      :key="0" />
+      v-for="(f, index) in rootFile.files"
+      :file="f"
+      :indent="16"
+      :key="index" />
 
   </div>
 </template>
