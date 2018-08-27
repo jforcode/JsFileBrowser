@@ -17,6 +17,7 @@ const File = function (isFile, fileName, fileType, createdBy, parent) {
     if (ind !== -1) {
       file.fileName = file.fileName + '_';
       this.addFile(file)
+      return;
     }
     this.files.push(file)
     this.update()
@@ -43,6 +44,21 @@ const File = function (isFile, fileName, fileType, createdBy, parent) {
 
   this.findFileIndex = function (fileName, fileType) {
     return this.files.findIndex(fl => fl.fileName === fileName && fl.fileType === fileType);
+  }
+
+  this.getPath = function () {
+    let ret = []
+    let temp = this;
+
+    while (temp && temp.fileName) {
+      ret.push({
+        label: temp.fileName,
+        file: temp
+      })
+      temp = temp.parent
+    }
+
+    return ret.reverse()
   }
 
 }

@@ -1,5 +1,5 @@
 import { users, errors } from './../consts.js'
-import Error from './../models/error.js'
+import err from './../models/error.js'
 import file from './../models/file.js'
 
 export default {
@@ -11,11 +11,10 @@ export default {
   },
 
   createFile: function (f, isFile, newFileName, newFileType, createdBy) {
-    if (!newFileName || !newFileType) throw new Error(errors.INVALID_PARAMETER, 'Invalid file name')
-    if (f.isFile) throw new Error(errors.INVALID_PARAMETER, 'Invalid source folder')
+    if (!newFileName) throw new err.Error(errors.INVALID_PARAMETER, 'Invalid file name')
+    if (f.isFile) throw new err.Error(errors.INVALID_PARAMETER, 'Invalid source folder')
 
-    const folder = new file.File(isFile, toCreate, '', createdBy)
-    f.addFile(folder)
+    f.addFile(new file.File(isFile, newFileName, newFileType, createdBy))
   },
 
   renameFile: function (f, newName, type, updatedBy) {
@@ -24,7 +23,7 @@ export default {
 
   deleteFile: function (f, deletedBy) {
     const parent = f.parent;
-    if (!parent) throw new Error(errors.CANT_DELETE_ROOT, 'Invalid operation to delete root')
+    if (!parent) throw new err.Error(errors.CANT_DELETE_ROOT, 'Invalid operation to delete root')
 
     parent.removeFile(f.fileName, f.fileType)
   },

@@ -25,18 +25,7 @@ export default {
   },
   computed: {
     crumbs: function () {
-      let ret = []
-      let temp = this.appState.currSelectedFile
-
-      while (temp && temp.fileName) {
-        ret.push({
-          label: temp.fileName,
-          file: temp
-        })
-        temp = temp.parent
-      }
-
-      return ret.reverse()
+      return this.appState.currSelectedFile.getPath()
     }
   },
   created: function () {
