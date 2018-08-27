@@ -1,11 +1,11 @@
 <template lang="html">
   <div>
     <FileView
-      v-for="(f, index) in rootFile.files"
-      :file="f"
+      :file="rootFile"
+      :visible="true"
       :indent="16"
-      :key="index"
-      :uid="index + ''" />
+      :key="0"
+      :uid="0" />
 
   </div>
 </template>

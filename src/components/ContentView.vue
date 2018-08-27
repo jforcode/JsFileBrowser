@@ -102,6 +102,10 @@ export default {
   font-size: 0.8em;
 }
 
+.file-options button {
+  margin-right: 8px;
+}
+
 .child-files {
   margin-top: 32px;
 }

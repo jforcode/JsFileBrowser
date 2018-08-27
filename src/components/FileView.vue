@@ -2,6 +2,8 @@
   <div class="">
     <div class="tree-element">
       <div class="" v-if="file.isFile" @click="setAsSelected">
+        <i class="material-icons tree-element__icon" @click="toggleDisplayChildren">
+        </i>
         <i class="material-icons tree-element__icon" v-if="file.isFile">insert_drive_file</i>
       </div>
       <div class="" v-else>
@@ -10,7 +12,7 @@
         </i>
         <i class="material-icons tree-element__icon" @click="setAsSelected">folder</i>
       </div>
-      <span class="tree-element__name" @click="setAsSelected">{{ file.fileName }}</span>
+      <span class="tree-element__name" @click="setAsSelected">{{ file.fileName || '/' }}</span>
 
       <div class="option-holder">
         <button :id="'options_' + uid" class="mdl-button mdl-js-button mdl-button--icon">
@@ -40,7 +42,8 @@ export default {
   props: [
     'file',
     'indent',
-    'uid'
+    'uid',
+    'visible'
   ],
   data () {
     return {
@@ -73,6 +76,8 @@ export default {
     }
   },
   created () {
+    this.displayChildren = this.visible
+    if (this.file.isFile) console.log(this.file.fileName + ' ' + this.indent)
   }
 }
 </script>
@@ -100,10 +105,11 @@ export default {
 }
 
 .tree-element__icon {
-
+  padding: 8px;
 }
 
 .tree-element__name {
   margin-left: 16px;
+  flex-grow: 1;
 }
 </style>

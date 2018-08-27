@@ -1,7 +1,6 @@
 <template lang="html">
   <div class="top-bar">
     <p class="action-ele" @click="$emit('showHome')">HOME</p>
-    <p class="action-ele" @click="$emit('showTrash')">TRASH</p>
     <div class="flex-spacer"></div>
   </div>
 </template>

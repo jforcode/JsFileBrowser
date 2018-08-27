@@ -74,6 +74,7 @@ export default {
 
 .content-view-holder {
   flex: 5 0;
+  padding-left: 16px;
 }
 
 .no-file-selected {
