@@ -4,7 +4,8 @@
       v-for="(f, index) in rootFile.files"
       :file="f"
       :indent="16"
-      :key="index" />
+      :key="index"
+      :uid="index + ''" />
 
   </div>
 </template>
@@ -30,4 +31,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.option-holder {
+  position: relative;
+}
 </style>
