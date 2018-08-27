@@ -1,5 +1,8 @@
 <template lang="html">
   <div class="">
+    <p class="file-name" v-if="!appState.currSelectedFile.parent">
+      /
+    </p>
     <div class="file-header">
       <div>
         <p class="file-name">{{ appState.currSelectedFile.fileName }}</p>
@@ -7,6 +10,23 @@
       </div>
       <div class="flex-spacer"></div>
       <p>{{ appState.currSelectedFile.lastUpdatedAt.fromNow() }}</p>
+    </div>
+    <div class="file-options">
+      <button class="mdl-button mdl-js-button mdl-button--icon" v-if="appState.currSelectedFile.parent" @click="goBack">
+        <i class="material-icons">arrow_back</i>
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" v-if="!appState.currSelectedFile.isFile" @click="createFolder">
+        Create Folder
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" v-if="!appState.currSelectedFile.isFile" @click="createFile">
+        Create File
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" v-if="appState.currSelectedFile.parent" @click="renameFile">
+        Rename
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" v-if="appState.currSelectedFile.parent" @click="deleteFile">
+        Delete
+      </button>
     </div>
     <div v-if="!appState.currSelectedFile.isFile" class="child-files">
       <div v-for="file in appState.currSelectedFile.files" class="child-file" @click="selectFile(file)">
@@ -21,6 +41,8 @@
 </template>
 
 <script>
+import { users } from './../consts.js'
+import fs from './../stores/fileSystem.js'
 import appState from './../stores/appState.js'
 
 export default {
@@ -31,7 +53,32 @@ export default {
   },
   methods: {
     selectFile: function (file) {
-      appState.setSelectedFile(file)
+      this.appState.setSelectedFile(file)
+    },
+    goBack: function () {
+      this.selectFile(this.appState.currSelectedFile.parent)
+    },
+    createFolder: function () {
+      var file = this.appState.currSelectedFile
+      if (file.isFile) return
+      let fileName = prompt('New Folder Name', '')
+      fs.createFile(file, false, fileName, file.type, users.user)
+    },
+    createFile: function () {
+      var file = this.appState.currSelectedFile
+      if (file.isFile) return
+      let fileName = prompt('New File Name', '')
+      fs.createFile(file, true, fileName, file.type, users.user)
+    },
+    renameFile: function () {
+      var file = this.appState.currSelectedFile
+      let fileName = prompt('New Name', '')
+      fs.renameFile(file, fileName, file.type, users.user)
+    },
+    deleteFile: function () {
+      var file = this.appState.currSelectedFile
+      fs.deleteFile(file, users.user)
+      this.selectFile(file.parent)
     }
   },
   created () {

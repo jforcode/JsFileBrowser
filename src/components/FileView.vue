@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="">
-    <div class="tree-element" v-if="file.fileName">
+    <div class="tree-element">
       <div class="" v-if="file.isFile" @click="setAsSelected">
-        <i class="material-icons tree-element__icon" v-if="file.isFile">event</i>
+        <i class="material-icons tree-element__icon" v-if="file.isFile">insert_drive_file</i>
       </div>
       <div class="" v-else>
         <i class="material-icons tree-element__icon" @click="toggleDisplayChildren">
@@ -17,10 +17,10 @@
           <i class="material-icons">more_vert</i>
         </button>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" :for="'options_' + uid">
-          <li class="mdl-menu__item option--create" v-if="!file.isFile" @click="createFolder(file)">Create Folder</li>
-          <li class="mdl-menu__item option--create" v-if="!file.isFile" @click="createFile(file)">Create New File</li>
-          <li class="mdl-menu__item option--update" @click="renameFile(file)">Rename</li>
-          <li class="mdl-menu__item option--delete" @click="deleteFile(file)">Delete</li>
+          <li class="mdl-menu__item option--create" v-if="!file.isFile" @click="createFolder">Create Folder</li>
+          <li class="mdl-menu__item option--create" v-if="!file.isFile" @click="createFile">Create New File</li>
+          <li class="mdl-menu__item option--update" @click="renameFile">Rename</li>
+          <li class="mdl-menu__item option--delete" @click="deleteFile">Delete</li>
         </ul>
       </div>
     </div>
@@ -44,7 +44,7 @@ export default {
   ],
   data () {
     return {
-      displayChildren: true // TODO: make it false
+      displayChildren: false
     }
   },
   methods: {
@@ -54,18 +54,21 @@ export default {
     toggleDisplayChildren: function () {
       this.displayChildren = !this.displayChildren
     },
-    createFolder: function (file) {
-      if (file.isFile) return
-      fs.createFile(file, false, 'Waassup', file.type, users.user)
+    createFolder: function () {
+      if (this.file.isFile) return
+      let fileName = prompt('New Folder Name', '')
+      fs.createFile(this.file, false, fileName, this.file.type, users.user)
     },
-    createFile: function (file) {
-      if (file.isFile) return
-      fs.createFile(file, true, 'Wassup bro', file.type, users.user)
+    createFile: function () {
+      if (this.file.isFile) return
+      let fileName = prompt('New File Name', '')
+      fs.createFile(this.file, true, fileName, this.file.type, users.user)
     },
-    renameFile: function (file) {
-      fs.renameFile(file, 'Whatever man', file.type, users.user)
+    renameFile: function () {
+      let fileName = prompt('New Name', '')
+      fs.renameFile(this.file, fileName, this.file.type, users.user)
     },
-    deleteFile: function (file) {
+    deleteFile: function () {
       fs.deleteFile(file, users.user)
     }
   },

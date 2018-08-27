@@ -1,5 +1,8 @@
 <template lang="html">
   <div class="">
+    <div v-if="!crumbs.length">
+      /
+    </div>
     <div class="crumb" v-for="crumb in crumbs" @click="selectFile(crumb.file)">
       <i class="material-icons crumb__icon">keyboard_arrow_right</i>
       <p class="crumb__label">
