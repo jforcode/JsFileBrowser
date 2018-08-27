@@ -1,12 +1,12 @@
 <template lang="html">
   <div class="">
     <div class="tree-element">
-      <div class="" v-if="file.isFile" @click="setAsSelected">
+      <div class="" v-show="file.isFile" @click="setAsSelected">
         <i class="material-icons tree-element__icon" @click="toggleDisplayChildren">
         </i>
-        <i class="material-icons tree-element__icon" v-if="file.isFile">insert_drive_file</i>
+        <i class="material-icons tree-element__icon" v-show="file.isFile">insert_drive_file</i>
       </div>
-      <div class="" v-else>
+      <div class="" v-show="!file.isFile">
         <i class="material-icons tree-element__icon" @click="toggleDisplayChildren">
           {{ displayChildren ? 'arrow_drop_down' : 'arrow_right' }}
         </i>
@@ -19,14 +19,14 @@
           <i class="material-icons">more_vert</i>
         </button>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" :for="'options_' + uid">
-          <li class="mdl-menu__item option--create" v-if="!file.isFile" @click="createFolder">Create Folder</li>
-          <li class="mdl-menu__item option--create" v-if="!file.isFile" @click="createFile">Create New File</li>
+          <li class="mdl-menu__item option--create" v-show="!file.isFile" @click="createFolder">Create Folder</li>
+          <li class="mdl-menu__item option--create" v-show="!file.isFile" @click="createFile">Create New File</li>
           <li class="mdl-menu__item option--update" @click="renameFile">Rename</li>
           <li class="mdl-menu__item option--delete" @click="deleteFile">Delete</li>
         </ul>
       </div>
     </div>
-    <div v-if="displayChildren && file.files.length" v-for="(f, index) in file.files">
+    <div v-show="displayChildren && file.files.length" v-for="(f, index) in file.files">
       <file-view v-bind:style="{ paddingLeft: indent + 'px' }" :file="f" :indent="16" :key="index" :uid="uid + '_' + index" />
     </div>
   </div>
@@ -80,6 +80,7 @@ export default {
     if (this.file.isFile) console.log(this.file.fileName + ' ' + this.indent)
   }
 }
+
 </script>
 
 <style lang="css" scoped>
