@@ -7,12 +7,14 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, '..', 'dist')
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '..')
+    }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: './src/index.html'
     }),
     new VueLoaderPlugin()
   ],

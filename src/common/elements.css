@@ -1,0 +1,9 @@
+.jb-top-app-bar {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding-left: 32px;
+  padding-right: 32px;
+  background-color: var(--primary-color);
+  color: var(--primary-text-color-on-dark-bg);
+}
