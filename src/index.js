@@ -4,6 +4,8 @@ import common from './common.css'
 import fs from './stores/fileSystem.js'
 import data from './data/longJson.json'
 
+require('typeface-montserrat')
+
 new Vue({
   el: '#app',
   template: '<App/>',
