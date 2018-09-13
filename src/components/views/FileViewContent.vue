@@ -1,38 +1,30 @@
 <template lang="html">
   <div v-if="appState.currSelectedFile">
-    <p class="file-name" v-if="!appState.currSelectedFile.parent">
-      /
-    </p>
+    <button class="back-btn jb-btn jb-btn--icon" v-if="appState.currSelectedFile && appState.currSelectedFile.parent" @click="goBack">
+      <i class="material-icons">arrow_back</i>
+    </button>
     <div class="file-header">
-      <div>
-        <p class="file-name">{{ appState.currSelectedFile.fileName }}</p>
-        <p class="file-created-by">Created By: {{ appState.currSelectedFile.createdBy }}</p>
-      </div>
-      <div class="flex-spacer"></div>
-      <p>{{ appState.currSelectedFile.lastUpdatedAt.fromNow() }}</p>
-    </div>
-    <div class="file-options">
-      <button class="mdl-button mdl-js-button mdl-button--icon" v-if="appState.currSelectedFile.parent" @click="goBack">
-        <i class="material-icons">arrow_back</i>
-      </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" v-if="!appState.currSelectedFile.isFile" @click="createFolder">
+      <p class="file-name">{{ appState.currSelectedFile.fileName || '[ root ]' }}</p>
+      <div class="jb-flex-spacer"></div>
+      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="!appState.currSelectedFile.isFile" @click="createFolder">
         Create Folder
       </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" v-if="!appState.currSelectedFile.isFile" @click="createFile">
+      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="!appState.currSelectedFile.isFile" @click="createFile">
         Create File
       </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" v-if="appState.currSelectedFile.parent" @click="renameFile">
+      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="appState.currSelectedFile.parent" @click="renameFile">
         Rename
       </button>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" v-if="appState.currSelectedFile.parent" @click="deleteFile">
+      <button class="jb-btn jb-btn--outline jb-btn--error jb-mr-lt" v-if="appState.currSelectedFile.parent" @click="deleteFile">
         Delete
       </button>
     </div>
+
     <div v-if="!appState.currSelectedFile.isFile" class="child-files">
       <div v-for="file in appState.currSelectedFile.files" class="child-file" @click="selectFile(file)">
         <i class="material-icons child-ele child__icon">{{ file.isFile ? 'file_upload' : 'folder' }}</i>
         <p class="child-ele child__name">{{ file.fileName }}</p>
-        <p class="child-ele child__created-by">{{ file.createdBy }}</p>
+        <p class="child-ele child__created-by">{{ file.createdBy.name }}</p>
         <p class="child-ele child__updated-at">{{ file.lastUpdatedAt.fromNow() }}</p>
       </div>
       <p v-if="!appState.currSelectedFile.files.length">Empty folder</p>
@@ -88,18 +80,29 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.back-btn {
+  margin-left: -8px;
+  margin-top: 32px;
+}
+
 .file-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  margin-top: 8px;
 }
 
 .file-name {
-  font-size: 1.3em;
-  color: #FF5722;
+  font-size: 1.4em;
+  color: var(--hero-color);
 }
 
 .file-created-by {
   font-size: 0.8em;
+}
+
+.file-options {
+  display: flex;
+  margin-top: 16px;
 }
 
 .file-options button {

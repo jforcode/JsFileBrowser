@@ -1,15 +1,26 @@
 :root {
-  --bg-color: #FAFAFA;
+  --bg-color: #FFFFFF;
+  --hero-color: #FF5722;
   --primary-color: #2196F3;
   --accent-color: #FF9800;
-  --primary-text-color-on-dark-bg: #FFFFFF;
-  --primary-text-color-on-light-bg: #212121;
+  --error-color: #F44336;
+  --success-color: #4CAF50;
+
+  --surface-color: #FFFFFF;
+  --surface-shadow-color: #F5F5F5;
+
+  --primary-text-color: #000000;
+  --secondary-text-color: #757575;
+  --primary-text-color-on-primary: #FFFFFF;
+  --primary-text-color-on-error: #FFFFFF;
 }
 
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #FAFAFA;
+  background-color: var(--bg-color);
+  color: var(--primary-text-color-on-bg);
+  font-size: 14px;
 }
 
 p {
@@ -25,5 +36,5 @@ button:focus {
 }
 
 .material-icons {
-  color: #757575;
+  color: var(--secondary-text-color);
 }

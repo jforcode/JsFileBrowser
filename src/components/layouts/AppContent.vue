@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="content">
     <BreadCrumb />
     <FileViewContent />
   </div>
@@ -22,5 +22,8 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+.content {
+  padding: 16px;
+}
 </style>

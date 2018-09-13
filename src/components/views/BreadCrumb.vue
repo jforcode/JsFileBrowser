@@ -22,7 +22,7 @@ export default {
   methods: {
     selectFile: function (file) {
       app.methods.selectFile(file)
-    }
+    },
   },
   computed: {
     crumbs () {

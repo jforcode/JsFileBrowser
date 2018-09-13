@@ -1,3 +1,11 @@
+.bg-error {
+  background-color: var(--error-color);
+}
+
+.text-error {
+  color: var(--error-color);
+}
+
 .jb-flex-row {
   display: flex;
 }
