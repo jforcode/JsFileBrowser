@@ -2,7 +2,7 @@ import moment from 'moment'
 import Error from './Error.js'
 
 export default class File {
-  constructor (isFile, fileName, fileType, createdBy, parent) {
+  constructor (isFile, fileName, fileType, createdBy) {
     this.isFile = isFile
     this.fileName = fileName
     this.fileType = fileType
@@ -10,7 +10,7 @@ export default class File {
     this.createdAt = moment()
     this.lastUpdatedAt = moment()
     this.files = []
-    this.parent = parent
+    this.parent = null
   }
 
   addFile (file) {
@@ -19,7 +19,8 @@ export default class File {
       throw 'Already Exists'
       return;
     }
-    
+
+    file.parent = this
     this.files.push(file)
     this.update()
   }
@@ -59,6 +60,7 @@ export default class File {
       temp = temp.parent
     }
 
+    console.log(ret)
     return ret.reverse()
   }
 }

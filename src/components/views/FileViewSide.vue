@@ -3,7 +3,7 @@
     <div class="tree-element">
       <div class="file-holder" v-if="file.isFile" @click="setAsSelected">
         <i class="material-icons file__if-file-icon">insert_drive_file</i>
-        <span class="file__name" @click="setAsSelected">{{ file.fileName }}</span>
+        <span class="file__name">{{ file.fileName }}</span>
       </div>
       <div class="file-holder" v-else>
         <i class="material-icons file__toggle-icon" @click="toggleDisplayChildren">
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     setAsSelected: function () {
-      app.methods.setSelectedFile(this.file)
+      app.methods.selectFile(this.file)
     },
     toggleDisplayChildren: function () {
       this.displayChildren = !this.displayChildren

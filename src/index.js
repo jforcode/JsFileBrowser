@@ -16,12 +16,12 @@ new Vue({
 })
 
 const root = fs.state.root
-const file1 = new File(true, 'File 1', 'txt', User.NORMAL_USER, root)
-const file2 = new File(true, 'File 2', 'txt', User.NORMAL_USER, root)
+const file1 = new File(true, 'File 1', 'txt', User.NORMAL_USER)
+const file2 = new File(true, 'File 2', 'txt', User.NORMAL_USER)
 
-const folder1 = new File(false, 'Folder 1', '', User.NORMAL_USER, root)
-const file11 = new File(true, 'File 3', 'txt', User.NORMAL_USER, root)
-const file12 = new File(true, 'File 2', 'txt', User.NORMAL_USER, folder1)
+const folder1 = new File(false, 'Folder 1', '', User.NORMAL_USER)
+const file11 = new File(true, 'File 3', 'txt', User.NORMAL_USER)
+const file12 = new File(true, 'File 2', 'txt', User.NORMAL_USER)
 
 fs.methods.createFile(root, file1)
 fs.methods.createFile(root, file2)
