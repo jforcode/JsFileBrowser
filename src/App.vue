@@ -23,18 +23,29 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
 .main-holder {
   display: flex;
-  position: relative;
+  align-items: stretch;
+  height: 100%;
 }
 
 .side-bar {
-  height: 100%;
+  flex: 1 0;
   overflow: auto;
+  padding-bottom: 80px;
 }
 
 .content-holder {
-  height: 100%;
+  flex: 3 0;
   overflow: auto;
+  padding-bottom: 80px;
 }
 </style>
