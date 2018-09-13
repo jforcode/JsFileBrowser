@@ -1,28 +1,20 @@
-import User from './../models/User.js'
-import Error from './../models/Error.js'
-import File from './../models/File.js'
+import { File, User, Error } from './../models'
 
 const state = {
-  fsRoot: null
+  root: new File(false, '', '', User.ROOT_USER)
 }
 
 const methods = {
-  createFile: function (f, isFile, newFileName, newFileType, createdBy) {
-    if (!newFileName) throw new Error(Error.INVALID_PARAMETER, 'Invalid file name')
-    if (f.isFile) throw new Error(Error.INVALID_PARAMETER, 'Invalid source folder')
-
-    f.addFile(new File(isFile, newFileName, newFileType, createdBy))
+  createFile (parent, file) {
+    parent.addFile(file)
   },
 
-  renameFile: function (f, newName, type, updatedBy) {
-    f.setFileName(newName, type, updatedBy)
+  renameFile (file, newName, newType, updatedBy) {
+    file.setFileName(newName, newType, updatedBy)
   },
 
-  deleteFile: function (f, deletedBy) {
-    const parent = f.parent
-    if (!parent) throw new Error(Error.CANT_DELETE_ROOT, 'Invalid operation to delete root')
-
-    parent.removeFile(f.fileName, f.fileType)
+  deleteFile (parent, file, deletedBy) {
+    parent.removeFile(file.fileName, file.fileType)
   }
 }
 

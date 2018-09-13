@@ -1,7 +1,7 @@
 import moment from 'moment'
 import Error from './Error.js'
 
-export class File {
+export default class File {
   constructor (isFile, fileName, fileType, createdBy, parent) {
     this.isFile = isFile
     this.fileName = fileName
@@ -16,10 +16,10 @@ export class File {
   addFile (file) {
     let ind = this.findFileIndex(file.fileName, file.fileType)
     if (ind !== -1) {
-      file.fileName = file.fileName + '_';
-      this.addFile(file)
+      throw 'Already Exists'
       return;
     }
+    
     this.files.push(file)
     this.update()
   }

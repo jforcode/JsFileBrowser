@@ -1,58 +1,50 @@
 <template lang="html">
-  <div class="">
+  <div v-bind:style="{ paddingLeft: indent + 'px' }">
     <div class="tree-element">
-      <div class="" v-show="file.isFile" @click="setAsSelected">
-        <i class="material-icons tree-element__icon" @click="toggleDisplayChildren">
-        </i>
-        <i class="material-icons tree-element__icon" v-show="file.isFile">insert_drive_file</i>
+      <div class="file-holder" v-if="file.isFile" @click="setAsSelected">
+        <i class="material-icons file__if-file-icon">insert_drive_file</i>
+        <span class="file__name" @click="setAsSelected">{{ file.fileName }}</span>
       </div>
-      <div class="" v-show="!file.isFile">
-        <i class="material-icons tree-element__icon" @click="toggleDisplayChildren">
+      <div class="file-holder" v-else>
+        <i class="material-icons file__toggle-icon" @click="toggleDisplayChildren">
           {{ displayChildren ? 'arrow_drop_down' : 'arrow_right' }}
         </i>
-        <i class="material-icons tree-element__icon" @click="setAsSelected">folder</i>
+        <i class="material-icons file__if-folder-icon" @click="setAsSelected">folder</i>
+        <span class="file__name" @click="setAsSelected">{{ file.fileName }}</span>
       </div>
-      <span class="tree-element__name" @click="setAsSelected">{{ file.fileName || '/' }}</span>
 
-      <div class="option-holder">
-        <button :id="'options_' + uid" class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">more_vert</i>
-        </button>
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" :for="'options_' + uid">
-          <li class="mdl-menu__item option--create" v-show="!file.isFile" @click="createFolder">Create Folder</li>
-          <li class="mdl-menu__item option--create" v-show="!file.isFile" @click="createFile">Create New File</li>
-          <li class="mdl-menu__item option--update" @click="renameFile">Rename</li>
-          <li class="mdl-menu__item option--delete" @click="deleteFile">Delete</li>
-        </ul>
-      </div>
+      <!-- FileOptionsMenu -->
     </div>
-    <div v-show="displayChildren && file.files.length" v-for="(f, index) in file.files">
-      <file-view v-bind:style="{ paddingLeft: indent + 'px' }" :file="f" :indent="16" :key="index" :uid="uid + '_' + index" />
+    <div v-if="displayChildren && sortedFiles.length" v-for="(f, index) in sortedFiles">
+      <file-view
+        :file="f"
+        :indent="16"
+        :key="index"
+        :comp-id="compId + '_' + index" />
     </div>
   </div>
 </template>
 
 <script>
-import appState from './../stores/appState.js'
-import fs from './../stores/fileSystem.js'
-import { users } from './../consts.js'
+import app from './../../stores/app.js'
+import fs from './../../stores/fileSystem.js'
 
 export default {
   name: 'file-view',
   props: [
+    'compId',
     'file',
     'indent',
-    'uid',
-    'visible'
+    'childrenVisible'
   ],
   data () {
     return {
-      displayChildren: false
+      displayChildren: false,
     }
   },
   methods: {
     setAsSelected: function () {
-      appState.setSelectedFile(this.file)
+      app.methods.setSelectedFile(this.file)
     },
     toggleDisplayChildren: function () {
       this.displayChildren = !this.displayChildren
@@ -60,57 +52,64 @@ export default {
     createFolder: function () {
       if (this.file.isFile) return
       let fileName = prompt('New Folder Name', '')
-      fs.createFile(this.file, false, fileName, this.file.type, users.user)
+      fs.methods.createFile(this.file, false, fileName, this.file.type, users.user)
     },
     createFile: function () {
       if (this.file.isFile) return
       let fileName = prompt('New File Name', '')
-      fs.createFile(this.file, true, fileName, this.file.type, users.user)
+      fs.methods.createFile(this.file, true, fileName, this.file.type, users.user)
     },
     renameFile: function () {
       let fileName = prompt('New Name', '')
-      fs.renameFile(this.file, fileName, this.file.type, users.user)
+      fs.methods.renameFile(this.file, fileName, this.file.type, users.user)
     },
     deleteFile: function () {
-      fs.deleteFile(file, users.user)
+      fs.methods.deleteFile(file, users.user)
+    }
+  },
+  computed: {
+    sortedFiles () {
+      return this.file.files.sort((a, b) => a.isFile - b.isFile)
     }
   },
   created () {
-    this.displayChildren = this.visible
-    if (this.file.isFile) console.log(this.file.fileName + ' ' + this.indent)
+    this.displayChildren = this.childrenVisible
   }
 }
 
 </script>
 
 <style lang="css" scoped>
-.option-holder {
-  position: relative;
-}
-
-.option--create {
-}
-
-.option--update {
-}
-
-.option--delete {
-  color: #F44336;
-}
-
 .tree-element {
-  padding: 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 
-.tree-element__icon {
-  padding: 8px;
+.file-holder {
+  display: flex;
+  align-items: flex-end;
+  padding: 4px 0;
 }
 
-.tree-element__name {
-  margin-left: 16px;
+.file-holder .material-icons {
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.file__if-file-icon {
+  margin-left: 18px;
+}
+
+.file__toggle-icon {
+}
+
+.file__if-folder-icon {
+}
+
+.file__name {
   flex-grow: 1;
+  font-size: 14px;
+  margin-left: 8px;
 }
 </style>

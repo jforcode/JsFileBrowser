@@ -4,7 +4,7 @@ const NOT_A_FILE = 'NOT_A_FILE',
   CANT_DELETE_ROOT = 'CANT_DELETE_ROOT',
   FILE_NOT_FOUND = 'FILE_NOT_FOUND'
 
-export class Error {
+export default class Error {
   constructor (code, message, extra) {
     this.code = code
     this.message = message

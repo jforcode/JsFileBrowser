@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
+
 import './common/theme.css'
 import './common/util.css'
 import './common/elements.css'
+
+import { File, User, Error } from './models'
+import app from './stores/app.js'
+import fs from './stores/fileSystem.js'
 
 new Vue({
   el: '#app',
@@ -10,22 +15,13 @@ new Vue({
   components: { App }
 })
 
+const root = fs.state.root
+const file1 = new File(true, 'File 1', 'txt', User.NORMAL_USER, root)
+const folder1 = new File(false, 'Folder 1', '', User.NORMAL_USER, root)
+const file2 = new File(true, 'File 2', 'txt', User.NORMAL_USER, folder1)
 
-function getGameRoot(game, rootEle) {
-  const gameRoot = new file.File(false, game.title, '', users.user, rootEle)
-  const resources = new file.File(false, 'Game play resources', '', users.user, gameRoot)
+fs.methods.createFile(root, file1)
+fs.methods.createFile(root, folder1)
+fs.methods.createFile(folder1, file2)
 
-  const installation = new file.File(false, 'Installation', '', users.user, resources)
-  game['Game play resources']['Installation'].forEach(f =>
-    installation.addFile(new file.File(true, f.file_name, f.type, users.user, installation)))
-
-  const dependency = new file.File(false, 'Resource Dependency', '', users.user, resources)
-  game['Game play resources']['Resource Dependency'].forEach(f =>
-    dependency.addFile(new file.File(true, f.file_name, f.type, users.user, installation)))
-
-  resources.addFile(installation)
-  resources.addFile(dependency)
-  gameRoot.addFile(resources)
-
-  return gameRoot
-}
+app.methods.selectFile(root)
