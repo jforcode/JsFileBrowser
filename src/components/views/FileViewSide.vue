@@ -15,8 +15,9 @@
 
       <!-- FileOptionsMenu -->
     </div>
-    <div v-if="displayChildren && sortedFiles.length" v-for="(f, index) in sortedFiles">
+    <div class="file__children" v-if="displayChildren && sortedFiles.length">
       <file-view
+        v-for="(f, index) in sortedFiles"
         :file="f"
         :indent="16"
         :key="index"
@@ -88,17 +89,17 @@ export default {
 
 .file-holder {
   display: flex;
-  align-items: flex-end;
-  padding: 4px 0;
+  align-items: center;
+  padding: 6px 0;
 }
 
 .file-holder .material-icons {
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 2px;
 }
 
 .file__if-file-icon {
-  margin-left: 18px;
+  margin-left: 20px;
 }
 
 .file__toggle-icon {
@@ -110,6 +111,10 @@ export default {
 .file__name {
   flex-grow: 1;
   font-size: 14px;
+  margin-left: 8px;
+}
+
+.file__children {
   margin-left: 8px;
 }
 </style>
