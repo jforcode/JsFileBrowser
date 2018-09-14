@@ -1,12 +1,12 @@
 <template lang="html">
-  <div v-if="!appState.currSelectedFile.isFile" class="child-files">
+  <div v-if="!file.isFile" class="child-files">
     <div v-for="file in sortedFiles" class="child-file" @click="selectFile(file)">
       <i class="material-icons child-ele child__icon">{{ file.isFile ? 'file_upload' : 'folder' }}</i>
       <p class="child-ele child__name">{{ file.fileName }}</p>
       <p class="child-ele child__created-by">{{ file.createdBy.name }}</p>
       <p class="child-ele child__updated-at">{{ file.lastUpdatedAt.fromNow() }}</p>
     </div>
-    <p v-if="!appState.currSelectedFile.files.length">Empty folder</p>
+    <p v-if="!file.files.length">Empty folder</p>
   </div>
 </template>
 
@@ -25,8 +25,11 @@ export default {
     },
   },
   computed: {
+    file () {
+      return this.appState.currSelectedFile
+    },
     sortedFiles () {
-      return this.appState.currSelectedFile.files.slice().sort((a, b) => a.isFile - b.isFile)
+      return this.file.files.slice().sort((a, b) => a.isFile - b.isFile)
     }
   },
 }

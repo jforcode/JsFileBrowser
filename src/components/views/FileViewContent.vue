@@ -1,21 +1,21 @@
 <template lang="html">
-  <div v-if="appState.currSelectedFile">
-    <button class="back-btn jb-btn jb-btn--icon" v-if="appState.currSelectedFile && appState.currSelectedFile.parent" @click="goBack">
+  <div v-if="file">
+    <button class="back-btn jb-btn jb-btn--icon" v-if="file && file.parent" @click="goBack">
       <i class="material-icons">arrow_back</i>
     </button>
     <div class="file-header">
-      <p class="file-name">{{ appState.currSelectedFile.fileName || '[ root ]' }}</p>
+      <p class="file-name">{{ file.fileName || '[ root ]' }}</p>
       <div class="jb-flex-spacer"></div>
-      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="!appState.currSelectedFile.isFile" @click="createFolder(appState.currSelectedFile)">
+      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="!file.isFile" @click="createFolder(file)">
         Create Folder
       </button>
-      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="!appState.currSelectedFile.isFile" @click="createFile(appState.currSelectedFile)">
+      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="!file.isFile" @click="createFile(file)">
         Create File
       </button>
-      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="appState.currSelectedFile.parent" @click="renameFile(appState.currSelectedFile)">
+      <button class="jb-btn jb-btn--outline jb-mr-lt" v-if="file.parent" @click="renameFile(file)">
         Rename
       </button>
-      <button class="jb-btn jb-btn--outline jb-btn--error jb-mr-lt" v-if="appState.currSelectedFile.parent" @click="deleteFile(appState.currSelectedFile)">
+      <button class="jb-btn jb-btn--outline jb-btn--error jb-mr-lt" v-if="file.parent" @click="deleteFile(file)">
         Delete
       </button>
     </div>
@@ -26,9 +26,7 @@
 
 <script>
 import { fileOptionsMixin } from './../../mixins/FileOptionsMixin.js'
-import { User } from './../../models'
 import app from './../../stores/app.js'
-import fs from './../../stores/fileSystem.js'
 import FileChildrenGrid from './FileChildrenGrid.vue'
 
 export default {
@@ -43,9 +41,14 @@ export default {
       app.methods.selectFile(file)
     },
     goBack: function () {
-      if (this.appState.currSelectedFile.parent) {
-        this.selectFile(this.appState.currSelectedFile.parent)
+      if (this.file.parent) {
+        this.selectFile(this.file.parent)
       }
+    }
+  },
+  computed: {
+    file: function () {
+      return this.appState.currSelectedFile
     }
   },
   components: {
