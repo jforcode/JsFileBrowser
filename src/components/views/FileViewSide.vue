@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     sortedFiles () {
-      return this.file.files.sort((a, b) => a.isFile - b.isFile)
+      return this.file.files.slice().sort((a, b) => a.isFile - b.isFile)
     }
   },
   created () {
@@ -91,12 +91,6 @@ export default {
 
 .file__if-file-icon {
   margin-left: 20px;
-}
-
-.file__toggle-icon {
-}
-
-.file__if-folder-icon {
 }
 
 .file__name {

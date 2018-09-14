@@ -5,7 +5,6 @@ const state = {
 const methods = {
   selectFile: function (file) {
     state.currSelectedFile = file
-    console.log(state)
   }
 }
 

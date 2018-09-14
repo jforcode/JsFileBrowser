@@ -60,7 +60,6 @@ export default class File {
       temp = temp.parent
     }
 
-    console.log(ret)
     return ret.reverse()
   }
 }

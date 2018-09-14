@@ -5,20 +5,20 @@
     </button>
     <div class="menu-holder" v-if="menuVisible" >
       <ul class="menu jb-shadow--2dp" :for="'options_' + compId">
-        <li class="menu-item option--create" v-show="!file.isFile" @click="createFolder">Create Folder</li>
-        <li class="menu-item option--create" v-show="!file.isFile" @click="createFile">Create New File</li>
-        <li class="menu-item option--update" @click="renameFile">Rename</li>
-        <li class="menu-item option--delete" @click="deleteFile">Delete</li>
+        <li class="menu-item option--create" v-show="!file.isFile" @click="createFolder(file)">Create Folder</li>
+        <li class="menu-item option--create" v-show="!file.isFile" @click="createFile(file)">Create New File</li>
+        <li class="menu-item option--update" @click="renameFile(file)">Rename</li>
+        <li class="menu-item option--delete" @click="deleteFile(file)">Delete</li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-import { User } from './../../models'
-import fs from './../../stores/fileSystem.js'
+import { fileOptionsMixin } from './../../mixins/FileOptionsMixin.js'
 
 export default {
+  mixins: [fileOptionsMixin],
   props: [
     'compId',
     'file'
@@ -32,7 +32,6 @@ export default {
     showMenu: function (evt) {
       let context = this
       let fnClose = function (event) {
-        console.log('called')
         context.menuVisible = false
         window.removeEventListener('click', fnClose, true)
       }
@@ -40,24 +39,7 @@ export default {
       this.menuVisible = true
       window.addEventListener('click', fnClose, true)
     },
-    createFolder: function () {
-      if (this.file.isFile) return
-      let fileName = prompt('New Folder Name', '')
-      fs.methods.createFile(this.file, false, fileName, this.file.type, User.NORMAL_USER)
-    },
-    createFile: function () {
-      if (this.file.isFile) return
-      let fileName = prompt('New File Name', '')
-      fs.methods.createFile(this.file, true, fileName, this.file.type, User.NORMAL_USER)
-    },
-    renameFile: function () {
-      let fileName = prompt('New Name', '')
-      fs.methods.renameFile(this.file, fileName, this.file.type, User.NORMAL_USER)
-    },
-    deleteFile: function () {
-      fs.methods.deleteFile(file, User.NORMAL_USER)
-    }
-  }
+  },
 }
 </script>
 

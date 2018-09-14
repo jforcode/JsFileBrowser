@@ -1,6 +1,6 @@
 <template lang="html">
   <div v-if="!appState.currSelectedFile.isFile" class="child-files">
-    <div v-for="file in appState.currSelectedFile.files" class="child-file" @click="selectFile(file)">
+    <div v-for="file in sortedFiles" class="child-file" @click="selectFile(file)">
       <i class="material-icons child-ele child__icon">{{ file.isFile ? 'file_upload' : 'folder' }}</i>
       <p class="child-ele child__name">{{ file.fileName }}</p>
       <p class="child-ele child__created-by">{{ file.createdBy.name }}</p>
@@ -23,7 +23,12 @@ export default {
     selectFile: function (file) {
       app.methods.selectFile(file)
     },
-  }
+  },
+  computed: {
+    sortedFiles () {
+      return this.appState.currSelectedFile.files.slice().sort((a, b) => a.isFile - b.isFile)
+    }
+  },
 }
 </script>
 
