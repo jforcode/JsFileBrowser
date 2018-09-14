@@ -13,7 +13,11 @@
         <span class="file__name" @click="setAsSelected">{{ file.fileName }}</span>
       </div>
 
-      <!-- FileOptionsMenu -->
+      <div class="jb-flex-spacer"></div>
+
+      <FileOptionsMenu
+        :comp-id="compId"
+        :file="file" />
     </div>
     <div class="file__children" v-if="displayChildren && sortedFiles.length">
       <file-view
@@ -29,6 +33,7 @@
 <script>
 import app from './../../stores/app.js'
 import fs from './../../stores/fileSystem.js'
+import FileOptionsMenu from './FileOptionsMenu.vue'
 
 export default {
   name: 'file-view',
@@ -40,7 +45,7 @@ export default {
   ],
   data () {
     return {
-      displayChildren: false,
+      displayChildren: false
     }
   },
   methods: {
@@ -49,23 +54,6 @@ export default {
     },
     toggleDisplayChildren: function () {
       this.displayChildren = !this.displayChildren
-    },
-    createFolder: function () {
-      if (this.file.isFile) return
-      let fileName = prompt('New Folder Name', '')
-      fs.methods.createFile(this.file, false, fileName, this.file.type, users.user)
-    },
-    createFile: function () {
-      if (this.file.isFile) return
-      let fileName = prompt('New File Name', '')
-      fs.methods.createFile(this.file, true, fileName, this.file.type, users.user)
-    },
-    renameFile: function () {
-      let fileName = prompt('New Name', '')
-      fs.methods.renameFile(this.file, fileName, this.file.type, users.user)
-    },
-    deleteFile: function () {
-      fs.methods.deleteFile(file, users.user)
     }
   },
   computed: {
@@ -75,6 +63,9 @@ export default {
   },
   created () {
     this.displayChildren = this.childrenVisible
+  },
+  components: {
+    FileOptionsMenu
   }
 }
 
