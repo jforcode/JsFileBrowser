@@ -52,7 +52,7 @@ export default class File {
     let ret = []
     let temp = this;
 
-    while (temp && temp.fileName) {
+    while (temp) {
       ret.push({
         label: temp.fileName,
         file: temp
