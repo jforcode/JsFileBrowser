@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="jb-top-app-bar jb-shadow--2dp">
-    <span class="fb-app-bar__title">News Feed</span>
+    <span class="fb-app-bar__title">Files</span>
     <div class="jb-flex-spacer"></div>
     <a href="https://www.github.com/jforcode" class="fb-app-bar__link">
       <span>@jforcode</span>
